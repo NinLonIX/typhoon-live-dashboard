@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071421">
+  <meta name="description" content="沿海居民使用的台风实况与分级预警演示页面，当前全部数据仅为演示使用。">
+  <title>沿海台风实况预警台 · 演示版</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="demo-ribbon" role="status">
+    <span class="demo-dot" aria-hidden="true"></span>
+    演示模式：页面内台风、位置、路径、风力和预警数据均为虚构示例，仅用于产品演示，不可用于实际决策。
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#overview" aria-label="返回台风实况总览">
+      <span class="brand-mark" aria-hidden="true">◒</span>
+      <span>
+        <strong>沿海台风实况预警台</strong>
+        <small>COASTAL STORM WATCH</small>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="页面导航">
+      <a class="active" href="#overview">总览</a>
+      <a href="#track">路径</a>
+      <a href="#alerts">预警</a>
+      <a href="#cities">沿海城市</a>
+    </nav>
+    <div class="header-meta">
+      <span class="live-indicator"><i aria-hidden="true"></i>演示数据流</span>
+      <button class="outline-button" id="refresh-demo" type="button">刷新演示数据</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section-shell" id="overview" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">TYPHOON MONITOR / 2026 · DEMO</p>
+        <h1 id="page-title">台风 <span>海棠</span> 正在向西北方向移动</h1>
+        <p class="hero-lede">把最重要的四个答案放在首屏：叫什么、在哪里、往哪走、风力多大。</p>
+        <div class="hero-tags">
+          <span class="tag tag-orange">橙色预警</span>
+          <span class="tag">编号 18W</span>
+          <span class="tag tag-muted">活跃中</span>
+        </div>
+      </div>
+      <aside class="hero-alert" aria-label="当前最高预警">
+        <div class="alert-icon" aria-hidden="true">!</div>
+        <div>
+          <span class="micro-label">当前最高预警</span>
+          <strong>橙色 · 风雨影响加大</strong>
+          <p>请减少前往海边、码头等危险区域，持续关注当地官方通知。</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="stats-grid section-shell" aria-label="台风实况关键指标">
+      <article class="metric-card metric-location">
+        <div class="metric-head"><span>当前位置</span><span class="metric-icon">⌖</span></div>
+        <strong>21.4°N · 124.8°E</strong>
+        <p>东海北部海域</p>
+        <small>距舟山约 468 km</small>
+      </article>
+      <article class="metric-card metric-direction">
+        <div class="metric-head"><span>移动方向</span><span class="metric-icon">↖</span></div>
+        <strong>西北偏西</strong>
+        <p>NW · 305°</p>
+        <small>移动速度 18 km/h</small>
+      </article>
+      <article class="metric-card metric-wind">
+        <div class="metric-head"><span>最大风力</span><span class="metric-icon">≋</span></div>
+        <strong>12 <em>级</em></strong>
+        <p>最大风速 33 m/s</p>
+        <small>近中心七级风圈半径 180 km</small>
+      </article>
+      <article class="metric-card metric-pressure">
+        <div class="metric-head"><span>中心气压</span><span class="metric-icon">⌁</span></div>
+        <strong>965 <em>hPa</em></strong>
+        <p>较上次下降 4 hPa</p>
+        <small>趋势：加强</small>
+      </article>
+    </section>
+
+    <section class="content-grid section-shell">
+      <article class="panel track-panel" id="track" aria-labelledby="track-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">LIVE TRACK / PATH</p>
+            <h2 id="track-title">路径示意图</h2>
+          </div>
+          <div class="panel-actions" aria-label="地图图例">
+            <span class="legend-item"><i class="legend-line observed"></i>实况路径</span>
+            <span class="legend-item"><i class="legend-line forecast"></i>预测路径</span>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <svg class="storm-map" viewBox="0 0 1000 500" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">台风海棠实况与预测路径示意图</title>
+            <desc id="map-desc">蓝绿色实线表示历史实况路径，橙色虚线表示演示用预测路径，地图底部显示中国东南沿海和台湾轮廓。</desc>
+            <defs>
+              <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#1e3a4d" stroke-width="1" opacity=".5"/>
+              </pattern>
+              <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0b2535"/>
+                <stop offset="1" stop-color="#071722"/>
+              </linearGradient>
+              <linearGradient id="forecastGlow" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ff9b57"/>
+                <stop offset="1" stop-color="#ffce70"/>
+              </linearGradient>
+              <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="7" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <rect width="1000" height="500" fill="url(#ocean)"/>
+            <rect width="1000" height="500" fill="url(#grid)"/>
+            <g class="map-labels">
+              <text x="64" y="58">东海</text><text x="830" y="74">日本南部</text><text x="470" y="458">台湾海峡</text>
+              <text x="97" y="378">福建沿海</text><text x="278" y="407">浙江沿海</text>
+            </g>
+            <path class="coastline" d="M0 350 C70 330 104 304 141 288 C178 271 202 278 234 301 C259 318 273 339 298 353 C323 368 347 375 367 394 C383 410 399 430 429 450 L0 500 Z"/>
+            <path class="coastline" d="M502 500 C515 459 539 425 572 400 C590 386 616 383 640 393 C668 404 677 427 692 443 C710 461 737 473 762 500 Z"/>
+            <path class="island" d="M750 364 C774 343 798 348 806 373 C816 404 809 432 792 452 C776 471 754 464 743 440 C734 417 733 384 750 364 Z"/>
+            <path class="track-observed" d="M455 365 C500 342 541 318 583 296 C623 274 664 255 707 239 C728 231 747 224 765 218"/>
+            <path class="track-forecast" d="M765 218 C731 193 697 175 658 163 C620 151 583 146 548 148 C515 150 487 162 460 178"/>
+            <g class="track-points observed-points">
+              <circle cx="455" cy="365" r="7"/><circle cx="500" cy="342" r="7"/><circle cx="541" cy="318" r="7"/><circle cx="583" cy="296" r="7"/><circle cx="623" cy="274" r="7"/><circle cx="664" cy="255" r="7"/><circle cx="707" cy="239" r="7"/>
+            </g>
+            <g class="track-points forecast-points">
+              <circle cx="731" cy="193" r="7"/><circle cx="697" cy="175" r="7"/><circle cx="658" cy="163" r="7"/><circle cx="620" cy="151" r="7"/><circle cx="583" cy="146" r="7"/><circle cx="548" cy="148" r="7"/><circle cx="515" cy="156" r="7"/>
+            </g>
+            <g class="current-storm" filter="url(#softGlow)">
+              <circle cx="765" cy="218" r="32" class="wind-ring"/>
+              <circle cx="765" cy="218" r="13" class="storm-core"/>
+              <path d="M765 190 L776 212 L767 210 L760 231 L754 222 L763 214 L754 211 Z" class="storm-symbol"/>
+            </g>
+            <g class="map-callout">
+              <rect x="785" y="180" width="151" height="66" rx="12"/>
+              <text x="803" y="204" class="callout-title">海棠 · 当前中心</text>
+              <text x="803" y="225">21.4°N / 124.8°E</text>
+            </g>
+            <g class="time-badge"><rect x="419" y="381" width="128" height="27" rx="13.5"/><text x="483" y="400" text-anchor="middle">09/26 18:00</text></g>
+          </svg>
+          <div class="map-note"><span class="note-icon">i</span>路径为演示示意，预测线不代表确定走向；实际信息请以权威机构发布为准。</div>
+        </div>
+        <div class="track-footer">
+          <div><span class="micro-label">最近更新</span><strong>2026-09-26 18:00 CST</strong></div>
+          <div><span class="micro-label">预计未来 24 小时</span><strong>向西北偏西移动约 430 km</strong></div>
+          <div><span class="micro-label">当前状态</span><strong class="text-orange">强度加强</strong></div>
+        </div>
+      </article>
+
+      <aside class="side-stack" id="alerts">
+        <article class="panel alert-panel" aria-labelledby="alert-title">
+          <div class="panel-heading compact">
+            <div><p class="eyebrow">ALERT LEVEL</p><h2 id="alert-title">分级预警</h2></div>
+            <span class="update-badge">刚刚更新</span>
+          </div>
+          <div class="alert-level alert-red"><span class="level-bar"></span><div><strong>红色</strong><small>风险极高 · 立即行动</small></div><span class="level-status">未触发</span></div>
+          <div class="alert-level alert-orange active-level"><span class="level-bar"></span><div><strong>橙色</strong><small>风雨影响加大</small></div><span class="level-status">当前</span></div>
+          <div class="alert-level alert-yellow"><span class="level-bar"></span><div><strong>黄色</strong><small>影响可能加大</small></div><span class="level-status">已覆盖</span></div>
+          <div class="alert-level alert-blue"><span class="level-bar"></span><div><strong>蓝色</strong><small>需要关注</small></div><span class="level-status">已覆盖</span></div>
+          <div class="alert-advice"><span class="advice-label">当前行动建议</span><p>减少不必要出行，远离海边、码头、海堤和临时搭建物；检查门窗及排水设施，关注当地政府通知。</p></div>
+          <div class="alert-source">发布机构（演示）：沿海气象服务中心 · 2026-09-26 17:40</div>
+        </article>
+        <article class="panel detail-panel" aria-labelledby="detail-title">
+          <div class="panel-heading compact"><div><p class="eyebrow">STORM PROFILE</p><h2 id="detail-title">台风档案</h2></div><span class="storm-number">18W</span></div>
+          <dl class="detail-list">
+            <div><dt>中文名</dt><dd>海棠</dd></div>
+            <div><dt>英文名</dt><dd>HAITANG</dd></div>
+            <div><dt>生成时间</dt><dd>09/24 08:00</dd></div>
+            <div><dt>七级风圈</dt><dd>180 km</dd></div>
+          </dl>
+        </article>
+      </aside>
+    </section>
+
+    <section class="panel cities-panel section-shell" id="cities" aria-labelledby="cities-title">
+      <div class="panel-heading cities-heading">
+        <div><p class="eyebrow">COASTAL CITIES / IMPACT</p><h2 id="cities-title">沿海城市影响</h2><p class="panel-subtitle">选择城市，快速查看距离、预计影响时段和当地提醒。</p></div>
+        <label class="city-select-label">查看城市<select id="city-select" aria-label="选择沿海城市"><option value="zhoushan">舟山</option><option value="ningbo">宁波</option><option value="fuzhou">福州</option><option value="xiamen">厦门</option></select></label>
+      </div>
+      <div class="city-focus" id="city-focus" aria-live="polite"><div class="focus-pin">⌖</div><div><span class="micro-label">当前选择</span><strong id="focus-city">舟山 · 浙江</strong><p id="focus-copy">预计 09/27 凌晨开始出现明显风雨，海上作业请提前回港。</p></div><div class="focus-distance"><span class="micro-label">预计最近距离</span><strong id="focus-distance">468 km</strong></div></div>
+      <div class="city-table" role="table" aria-label="沿海城市影响列表">
+        <div class="city-row city-row-header" role="row"><span role="columnheader">城市</span><span role="columnheader">距离台风中心</span><span role="columnheader">预计影响</span><span role="columnheader">当地状态</span></div>
+        <div class="city-row selected" role="row" data-city="zhoushan"><span role="cell"><strong>舟山</strong><small>浙江</small></span><span role="cell">468 km</span><span role="cell">09/27 00:00 起</span><span role="cell"><b class="city-status orange">橙色关注</b></span></div>
+        <div class="city-row" role="row" data-city="ningbo"><span role="cell"><strong>宁波</strong><small>浙江</small></span><span role="cell">516 km</span><span role="cell">09/27 04:00 起</span><span role="cell"><b class="city-status yellow">黄色关注</b></span></div>
+        <div class="city-row" role="row" data-city="fuzhou"><span role="cell"><strong>福州</strong><small>福建</small></span><span role="cell">702 km</span><span role="cell">09/27 12:00 起</span><span role="cell"><b class="city-status blue">蓝色关注</b></span></div>
+        <div class="city-row" role="row" data-city="xiamen"><span role="cell"><strong>厦门</strong><small>福建</small></span><span role="cell">824 km</span><span role="cell">09/28 00:00 起</span><span role="cell"><b class="city-status blue">蓝色关注</b></span></div>
+      </div>
+    </section>
+
+    <section class="source-strip section-shell" aria-label="数据说明">
+      <div class="source-icon">◇</div>
+      <div><strong>数据说明</strong><p>本页面使用虚构演示数据，未连接实时气象服务。正式上线前需要完成权威数据源授权、字段校验、延迟监测和人工复核。</p></div>
+      <a href="docs/PROJECT_PLAN.md">查看项目计划书 <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <span>沿海台风实况预警台 · DEMO BUILD 01</span>
+    <span>仅作产品演示，不构成天气预报或应急指令</span>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
